@@ -8,4 +8,20 @@ Antes de seguir o passo a passo da configuração, algumas informações precisa
 
 ## Vamos seguir com as seguintes configurações do Load Balance
 
-1° passo - Configurar o Dockerfile da aplicação backend:
+1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:
+```
+# Imagem base do Python
+FROM python:3.9-slim
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos de requisitos
+COPY ./app/requirements.txt /app/requirements.txt
+
+# Instala as dependências
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+# Comando para rodar a aplicação
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
