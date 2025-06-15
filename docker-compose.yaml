@@ -1,0 +1,238 @@
+# version: '3.8'
+
+# services:
+#   nginx:
+#     image: nginx:latest
+#     ports:
+#       - "8080:80"
+#     volumes:
+#       - ./nginx/nginx.conf:/etc/nginx/nginx.conf # Adicione ':ro' para read-only
+#     depends_on:
+#       - fastapi1
+#       - fastapi2
+#       - fastapi3
+#       - fastapi4
+#       - fastapi5
+#     networks:  # Adicione explicitamente a rede
+#       - app_net
+
+#   fastapi1:
+#     build: .
+#     environment:
+#       - INSTANCE_NUMBER=1
+#     expose:
+#       - "8000"
+#     networks:  # Adicione a mesma rede
+#       - app_net
+
+#   fastapi2:
+#     build: .
+#     environment:
+#       - INSTANCE_NUMBER=2
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi3:
+#     build: .
+#     environment:
+#       - INSTANCE_NUMBER=3
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi4:
+#     build: .
+#     environment:
+#       - INSTANCE_NUMBER=4
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi5:
+#     build: .
+#     environment:
+#       - INSTANCE_NUMBER=5
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+# # Defina a rede customizada
+# networks:
+#   app_net:
+#     driver: bridge
+
+
+# version: '3.8'
+
+# services:
+#   nginx:
+#     image: nginx:latest
+#     ports:
+#       - "8080:80"
+#     volumes:
+#       - ./nginx/nginx.conf:/etc/nginx/nginx.conf # Adicionado ':ro' (read-only)
+#     depends_on:
+#       - fastapi1
+#       - fastapi2
+#       - fastapi3
+#       - fastapi4
+#       - fastapi5
+#     networks:
+#       - app_net
+
+#   fastapi1:
+#     build: .
+#     volumes:
+#       - ./app:/app  # Mapeia o código-fonte para o diretório /app no container
+#     environment:
+#       - INSTANCE_NUMBER=1
+#     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000  # Adicionado --reload
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi2:
+#     build: .
+#     volumes:
+#       - ./app:/app
+#     environment:
+#       - INSTANCE_NUMBER=2
+#     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi3:
+#     build: .
+#     volumes:
+#       - ./app:/app
+#     environment:
+#       - INSTANCE_NUMBER=3
+#     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi4:
+#     build: .
+#     volumes:
+#       - ./app:/app
+#     environment:
+#       - INSTANCE_NUMBER=4
+#     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+#   fastapi5:
+#     build: .
+#     volumes:
+#       - ./app:/app
+#     environment:
+#       - INSTANCE_NUMBER=5
+#     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+#     expose:
+#       - "8000"
+#     networks:
+#       - app_net
+
+# networks:
+#   app_net:
+#     driver: bridge
+
+version: '3.8'
+
+services:
+  nginx:
+    container_name: loadbalancer_nginx  # Nome personalizado
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - fastapi1
+      - fastapi2
+      - fastapi3
+      - fastapi4
+      - fastapi5
+    networks:
+      - app_net
+
+  fastapi1:
+    container_name: fastapi_instance_1  # Nome personalizado
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=1
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi2:
+    container_name: fastapi_instance_2  # Nome personalizado
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=2
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi3:
+    container_name: fastapi_instance_3  # Nome personalizado
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=3
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi4:
+    container_name: fastapi_instance_4  # Nome personalizado
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=4
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi5:
+    container_name: fastapi_instance_5  # Nome personalizado
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=5
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
