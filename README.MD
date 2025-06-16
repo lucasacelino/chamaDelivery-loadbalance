@@ -6,9 +6,9 @@ Nesta atividade desenvolvi uma aplicação backend utilizando [FastAPI](https://
 Antes de seguir o passo a passo da configuração, algumas informações precisam ser esclarecidas: 
 > É necessário ter o **Docker** e o **Nginx** instalado na sua máquina. Caso não tenha, realize a instalação. 
 
-## Vamos seguir com as seguintes configurações do Load Balance
+## Vamos seguir com as seguintes configurações do Backeend e Load Balance
 
-1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:
+1° passo - Configurar o [Dockerfile](/Dockerfile) e o da aplicação backend:
 ```
 # Imagem base do Python
 FROM python:3.9-slim
@@ -25,3 +25,8 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 # Comando para rodar a aplicação
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
+
+2º Passo - Configurar o arquivo `nginx.conf`:
+
+Decidi realizar a configuração dos contêineres através do arquivo docker-compose pelo o fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo. 
+2º Passo - Configurar o docker-compose.yaml
