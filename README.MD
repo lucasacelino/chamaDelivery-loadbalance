@@ -85,5 +85,95 @@ o bloco `location /openapi.json` - redireciona para o caminho /openapi.json, ond
 
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose, pelo fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo, ao invés, de realizar a configuração via CLI/terminal.
 
+```
+version: '3.8'
+
+services:
+  nginx:
+    container_name: loadbalancer_nginx  
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - fastapi1
+      - fastapi2
+      - fastapi3
+      - fastapi4
+      - fastapi5
+    networks:
+      - app_net
+
+  fastapi1:
+    container_name: fastapi_instance_1  
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=1
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi2:
+    container_name: fastapi_instance_2  
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=2
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi3:
+    container_name: fastapi_instance_3  
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=3
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi4:
+    container_name: fastapi_instance_4  
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=4
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  fastapi5:
+    container_name: fastapi_instance_5  
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      - INSTANCE_NUMBER=5
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
+```
+
 
 
