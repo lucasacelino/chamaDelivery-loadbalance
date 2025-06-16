@@ -81,6 +81,9 @@ o bloco `location /docs` - Direciona o caminho /docs diretamente para /docs no b
 o bloco `location /openapi.json` - redireciona para o caminho /openapi.json, onde há um arquivo json com todas as informações da aplicação.
 
 
-3º Passo - Configurar o docker-compose.yaml
+3º Passo - Configurar o [docker-compose.yaml](/docker-compose.yaml):
+
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose, pelo fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo, ao invés, de realizar a configuração via CLI/terminal.
+
+
 
