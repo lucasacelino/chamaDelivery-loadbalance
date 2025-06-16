@@ -8,7 +8,7 @@ Antes de seguir o passo a passo da configuração, algumas informações precisa
 
 ## Vamos seguir com as seguintes configurações do Backeend e Load Balance
 
-1° passo - Configurar o [Dockerfile](/Dockerfile) e o da aplicação backend:
+1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:
 ```
 # Imagem base do Python
 FROM python:3.9-slim
@@ -26,7 +26,44 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-2º Passo - Configurar o arquivo `nginx.conf`:
+2º Passo - Configurar o arquivo [nginx.conf](/nginx/nginx.conf) para executar o load balance:
+```
+events {
+    worker_connections 1024;
+}
+
+http {
+    upstream fastapi_servers {
+        server fastapi1:8000;
+        server fastapi2:8000;
+        server fastapi3:8000;
+        server fastapi4:8000;
+        server fastapi5:8000;
+    }
+
+    server {
+        listen 80;
+        
+        location / {
+            proxy_pass http://fastapi_servers;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /docs {
+            proxy_pass http://fastapi_servers/docs;
+            proxy_set_header Host $host;
+        }
+
+        location /openapi.json {
+            proxy_pass http://fastapi_servers/openapi.json;
+            proxy_set_header Host $host;
+        }
+    }
+}
+```
+
 
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose pelo o fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo. 
 2º Passo - Configurar o docker-compose.yaml
