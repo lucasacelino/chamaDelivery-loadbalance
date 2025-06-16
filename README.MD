@@ -69,17 +69,18 @@ O bloco `events` - define as quantidade de conexões que um worker_process pode 
 
 o bloco `http` - define todas as configurações relacionadas ao tráfego HTTP. Dentro dele é onde define o balanceamento, servidores virtuais (server), rotas (location), etc.
 
-o bloco `upstrem`- define um grupo de servidores backend para o balanceamento de carga. Cada server refere-se a um serviço definido no docker-compose (os containers fastapi1, fastapi2, etc.).
+o bloco `upstream`- define um grupo de servidores backend para o balanceamento de carga. Cada server refere-se a um serviço definido no docker-compose (os containers fastapi1, fastapi2, etc.).
 Todos escutam na porta 8000 (conforme definido nos containers FastAPI).
 
 o bloco `server` - define um servidor virtual que escuta na porta 80 (HTTP padrão).
 
 o bloco `location /` - redireciona todas as requisições para / (ex: http://localhost:8080/) para o grupo de servidores fastapi_servers. 
 
-o bloco `location /docs` - 
+o bloco `location /docs` - Direciona o caminho /docs diretamente para /docs no backend FastAPI (onde está a documentação Swagger).
+
+o bloco `location /openapi.json` - redireciona para o caminho /openapi.json, onde há um arquivo json com todas as informações da aplicação.
 
 
+3º Passo - Configurar o docker-compose.yaml
+Decidi realizar a configuração dos contêineres através do arquivo docker-compose, pelo fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo, ao invés, de realizar a configuração via CLI/terminal.
 
-
-Decidi realizar a configuração dos contêineres através do arquivo docker-compose pelo o fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo. 
-2º Passo - Configurar o docker-compose.yaml
