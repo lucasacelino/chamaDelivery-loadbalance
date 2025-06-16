@@ -6,7 +6,7 @@ Nesta atividade desenvolvi uma aplicação backend utilizando [FastAPI](https://
 Antes de seguir o passo a passo da configuração, algumas informações precisam ser esclarecidas: 
 > É necessário ter o **Docker** e o **Nginx** instalado na sua máquina. Caso não tenha, realize a instalação. 
 
-## Vamos seguir com as seguintes configurações do Backeend e Load Balance
+## Vamos seguir com as seguintes configurações do Backend e Load Balance
 
 1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:
 ```
@@ -63,6 +63,12 @@ http {
     }
 }
 ```
+Explicando cada bloco do ngnix.conf:
+O bloco `events` - define as quantidade de conexões que um worker_process pode lidar simultaneamente. Geralmente o padrão é 1024. É obrigatŕio "setar" esse bloco no nginx.conf.
+
+o bloco `http` - define todas as configurações relacionadas ao tráfego HTTP. Dentro dele é onde define o balanceamento, servidores virtuais (server), rotas (location), etc.
+
+
 
 
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose pelo o fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo. 
