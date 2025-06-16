@@ -63,7 +63,7 @@ http {
     }
 }
 ```
-Explicando cada bloco do ngnix.conf:
+**Explicando cada bloco do ngnix.conf**:
 
 O bloco `events` - define as quantidade de conexões que um worker_process pode lidar simultaneamente. Geralmente o padrão é 1024. É obrigatŕio "setar" esse bloco no nginx.conf.
 
@@ -71,6 +71,12 @@ o bloco `http` - define todas as configurações relacionadas ao tráfego HTTP. 
 
 o bloco `upstrem`- define um grupo de servidores backend para o balanceamento de carga. Cada server refere-se a um serviço definido no docker-compose (os containers fastapi1, fastapi2, etc.).
 Todos escutam na porta 8000 (conforme definido nos containers FastAPI).
+
+o bloco `server` - define um servidor virtual que escuta na porta 80 (HTTP padrão).
+
+o bloco `location /` - redireciona todas as requisições para / (ex: http://localhost:8080/) para o grupo de servidores fastapi_servers. 
+
+o bloco `location /docs` - 
 
 
 
