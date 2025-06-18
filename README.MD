@@ -264,9 +264,14 @@ Fiz duas requisições no endpoint `getPedidosRestaurante()`. Cada requisição 
 
 ![img-app](/app/images/Untitled.png)
 
-Como vemos na imagem, quem executou a requisição foi nó `fastapi1` que tem o seguinte endereço IP: `172.20.0.5`.
+Como vemos na imagem, quem executou a requisição foi nó `fastapi1` que tem o seguinte endereço IP: `172.20.0.5`, onde está marcada pela seta vermelha.
 
-O servidor onde a aplicação está sendo executada é o Nginx, onde está marcado pelo o retângulo.
+O servidor onde a aplicação está sendo executada é o Nginx, onde está marcado pelo o retângulo vermelho.
+
+Fiz outra requisição no endpoint `getPedidosRestaurante()` e quem executou a requisição foi o nó `fastapi5` que tem o seguinte endereço IP: `172.20.0.4`
+
+![img-app](/app/images/Untitled%20(1).png)
+
 
 
 
