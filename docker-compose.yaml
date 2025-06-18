@@ -22,8 +22,6 @@ services:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=1
     expose:
       - "8000"
     networks:
@@ -34,8 +32,6 @@ services:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=2
     expose:
       - "8000"
     networks:
@@ -46,8 +42,6 @@ services:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=3
     expose:
       - "8000"
     networks:
@@ -58,8 +52,6 @@ services:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=4
     expose:
       - "8000"
     networks:
@@ -70,8 +62,6 @@ services:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=5
     expose:
       - "8000"
     networks:

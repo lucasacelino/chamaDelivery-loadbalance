@@ -108,8 +108,6 @@ nginx:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=1
     expose:
       - "8000"
     networks:
@@ -120,8 +118,6 @@ nginx:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=2
     expose:
       - "8000"
     networks:
@@ -132,8 +128,6 @@ nginx:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=3
     expose:
       - "8000"
     networks:
@@ -144,8 +138,6 @@ nginx:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=4
     expose:
       - "8000"
     networks:
@@ -156,8 +148,6 @@ nginx:
     build: .
     volumes:
       - ./app:/app
-    environment:
-      - INSTANCE_NUMBER=5
     expose:
       - "8000"
     networks:
@@ -264,8 +254,19 @@ No caso da apliacação que desenvolvi, cada contêiner/nó tem os seguintes IP'
 }
 ```
 
-**Objetivo - realizar as requisições e verficar qual foi nó(servidor) do load balance que executou a requisição**
+**Objetivo - realizar as requisições e verificar qual foi o nó(servidor) do load balance que executou a requisição**
 
 Com os contêineres já em execução, acesso a aplicação backend através da URL `http://localhost:8080`. O FastAPI autodocumenta a API desenvolvida no Swagger UI. 
 
 ![img-app](/app/images/Captura%20de%20tela%20de%202025-06-16%2014-52-37.png)
+
+Fiz duas requisições no endpoint `getPedidosRestaurante()`. Cada requisição foi executada por nós diferentes, o que satisfaz o propósito da atividade. 
+
+![img-app](/app/images/Untitled.png)
+
+Como vemos na imagem, quem executou a requisição foi nó `fastapi1` que tem o seguinte endereço IP: `172.20.0.5`.
+
+O servidor onde a aplicação está sendo executada é o Nginx, onde está marcado pelo o retângulo.
+
+
+
