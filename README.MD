@@ -81,7 +81,7 @@ o bloco `location /docs` - Direciona o caminho /docs diretamente para /docs no b
 o bloco `location /openapi.json` - redireciona para o caminho /openapi.json, onde há um arquivo json com todas as informações da aplicação.
 
 
-3º Passo - Configurar o [docker-compose.yaml](/docker-compose.yaml):
+3º Passo - Configurar o [docker-compose.yaml](/docker-compose.yaml) para criar e gerenciar os contêineres:
 
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose, pelo fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo, ao invés, de realizar a configuração via CLI/terminal.
 
@@ -174,6 +174,23 @@ networks:
   app_net:
     driver: bridge
 ```
+
+Explicando cada bloco do docker-compose.yaml:
+
+o bloco `version` - define a versão do docker-compose
+
+o bloco `service`- define todas todas as configurações dos contêineres, como: imagens(image), volumes(volumes), redes(networks) e variávies de ambiente(enviroment).
+
+Por exemplo, o serviço nginx tem os seguintes blocos:
+
+`container_name`- define o nome do contêiner 
+
+`image` - define a imagem do nginx 
+
+`ports` - define a porta de comunicação entre o host e o contêiner docker
+
+
+
 
 
 
