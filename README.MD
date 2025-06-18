@@ -201,3 +201,12 @@ Por fim, para criar os contêiners com base nas imagens definidas do dcoker-comp
 ```
 docker-compose up --build
 ```
+
+## Testando a aplicação com o Load Balance:
+Para finalizar o tutorial, chegamos na parte mais importante, realizar o teste do Load Balance na aplicação Backend. Nessa simples aplicação, desenvolvi apenas 2 endpoints:
+
+`getPedidosRestaurante(nome_restaurante)` - captura todos os pedidos de um respectivo restaurante passado como parâmetro.
+
+`getPedidosMetPagamentos(tipo_metodo)`- captura todos os pedidos de que foram pagos por um método de pagamento específico passado cmo parâmetro.
+
+**Objetivo - realizar as requisições e verficar qual foi nó(servidor) do load balance que executou a requisição**

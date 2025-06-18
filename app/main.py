@@ -14,15 +14,15 @@ app = FastAPI(
 
 instance_id = os.getenv("INSTANCE_NUMBER", 'unknow')
 
-@app.get("/pedidos-resturante/{restaurante}")
-def getPedidosRestaurante(restaurante: str):
+@app.get("/pedidos-resturante/{nome_restaurante}")
+def getPedidosRestaurante(nome_restaurante: str):
     
     hostname = socket.gethostname()
     container_ip = socket.gethostbyname(hostname)
     
     pedidosRestaunte = []
     for pedido in data:
-        if(restaurante == pedido['restaurant']):
+        if(nome_restaurante == pedido['restaurant']):
             pedidosRestaunte.append(pedido)
             
     return {
