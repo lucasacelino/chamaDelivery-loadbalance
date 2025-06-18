@@ -268,4 +268,4 @@ No caso da apliacação que desenvolvi, cada contêiner/nó tem os seguintes IP'
 
 Com os contêineres já em execução, acesso a aplicação backend através da URL `http://localhost:8080`. O FastAPI autodocumenta a API desenvolvida no Swagger UI. 
 
-[img-app](/app/images/Captura%20de%20tela%20de%202025-06-16%2014-52-37.png)
+![img-app](/app/images/Captura%20de%20tela%20de%202025-06-16%2014-52-37.png)
