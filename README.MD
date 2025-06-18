@@ -189,8 +189,10 @@ Por exemplo, o serviço nginx tem os seguintes blocos:
 
 `ports` - define a porta de comunicação entre o host e o contêiner docker
 
+`volumes`- Os volumes são sistemas de arquivos montados em contêineres Docker para preservar os dados gerados pelo contêiner. Nesse caso, criei um volume para persistir os dados do `nginx.conf`.
 
+`links`- define uma conexão de rede entre os contêineres vinculados, permitindo que eles se comuniquem entre si.
 
-
+`networks` - define a rede virtual, na qual, os contêineres irão se comunicar. Nesse caso, o nome da rede que eu criei foi `app_net`.
 
 
