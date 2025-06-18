@@ -146,4 +146,4 @@ lucas@lucas-Aspire-E5-573G:~/Documentos/IFPB/p6_2025.1/gcsi_tsi/Atividade2-loadb
                 "IPv4Address": "172.20.0.6/16",
                 "IPv6Address": ""
             }
-        },
+}

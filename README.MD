@@ -209,4 +209,59 @@ Para finalizar o tutorial, chegamos na parte mais importante, realizar o teste d
 
 `getPedidosMetPagamentos(tipo_metodo)`- captura todos os pedidos de que foram pagos por um método de pagamento específico passado cmo parâmetro.
 
+Para verificar o IP de cada contêiner, execute os seguinte comando:
+
+```
+docker network inspect <nome_do_projeto>
+```
+
+No caso da apliacação que desenvolvi, cada contêiner/nó tem os seguintes IP's:
+
+```
+"Containers": {
+            "0004b033bdb075465b9c941e5c3b378a3fd433ef71ef0af46295af88faf327b8": {
+                "Name": "fastapi_instance_4",
+                "EndpointID": "c7b19c097b05a1d94e5b4f2ccf7ac2a38e14d942e0bfdafbb6357ab06e3355ae",
+                "MacAddress": "d6:49:51:10:5e:78",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "11ea998ff8c8391b64c53552e3674493791fd0b886897c0ab9b91b690d1be2fc": {
+                "Name": "fastapi_instance_2",
+                "EndpointID": "3655708ac317d074a2a96787cc579669d5472d8c6984bdd9b57e22af245435c2",
+                "MacAddress": "a6:81:c7:4b:56:7f",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            },
+            "20bd74bbac9ca71c33922ad05d1503d13867822f790088cc88df76e0d7b7a5ca": {
+                "Name": "loadbalancer_nginx",
+                "EndpointID": "f5f1ed923745eb550fdd89a6e304efb9eb7e2c40baf9ae6a63275c1eaeac43fb",
+                "MacAddress": "16:e0:42:98:d6:39",
+                "IPv4Address": "172.20.0.7/16",
+                "IPv6Address": ""
+            },
+            "26ec06999f4a08e951dd24c2d47c3e08aed86caa9659dc740adc9074166e84c7": {
+                "Name": "fastapi_instance_1",
+                "EndpointID": "c84bbdc651616ffae9f61f699c1b9b3073e6475eb0381d707ce0bfd52ec269df",
+                "MacAddress": "46:9d:f9:b8:72:84",
+                "IPv4Address": "172.20.0.5/16",
+                "IPv6Address": ""
+            },
+            "36f9a4b903944d05aa309817d320ae515871dbdac6f1eed89d7fb5d54c0c634a": {
+                "Name": "fastapi_instance_5",
+                "EndpointID": "5e3ef2918c1302441ff0b40a405949e1dd02c3c3828743134c9ae3f3dbed6d61",
+                "MacAddress": "c6:b0:a7:4d:ad:1c",
+                "IPv4Address": "172.20.0.4/16",
+                "IPv6Address": ""
+            },
+            "880a929053649b2d4bd5358aa2bc5a565494de7694174cea16e7780318a30392": {
+                "Name": "fastapi_instance_3",
+                "EndpointID": "03f4f0e6548b9380cf1c15a9129fd1ef8c83ab9f98497d37faf9b5b36782c07e",
+                "MacAddress": "7a:17:f0:c0:43:27",
+                "IPv4Address": "172.20.0.6/16",
+                "IPv6Address": ""
+            }
+}
+```
+
 **Objetivo - realizar as requisições e verficar qual foi nó(servidor) do load balance que executou a requisição**
