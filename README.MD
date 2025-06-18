@@ -8,7 +8,7 @@ Antes de seguir o passo a passo da configuração, algumas informações precisa
 
 ## Vamos seguir com as seguintes configurações do Backend e Load Balance
 
-1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:
+**1° passo - Configurar o [Dockerfile](/Dockerfile) da aplicação backend:**
 ```
 # Imagem base do Python
 FROM python:3.9-slim
@@ -26,7 +26,7 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-2º Passo - Configurar o arquivo [nginx.conf](/nginx/nginx.conf) para executar o load balance:
+**2º Passo - Configurar o arquivo [nginx.conf](/nginx/nginx.conf) para executar o load balance:**
 ```
 events {
     worker_connections 1024;
@@ -81,22 +81,20 @@ o bloco `location /docs` - Direciona o caminho /docs diretamente para /docs no b
 o bloco `location /openapi.json` - redireciona para o caminho /openapi.json, onde há um arquivo json com todas as informações da aplicação.
 
 
-3º Passo - Configurar o [docker-compose.yaml](/docker-compose.yaml) para criar e gerenciar os contêineres:
+**3º Passo - Configurar o [docker-compose.yaml](/docker-compose.yaml) para criar e gerenciar os contêineres:**
 
 Decidi realizar a configuração dos contêineres através do arquivo docker-compose, pelo fato de facilitar a criação e orquestração de contêiners no Docker em um único arquivo, ao invés, de realizar a configuração via CLI/terminal.
 
 ```
 version: '3.8'
-
-services:
-  nginx:
+nginx:
     container_name: loadbalancer_nginx  
     image: nginx:latest
     ports:
       - "8080:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
+    links:
       - fastapi1
       - fastapi2
       - fastapi3
@@ -112,7 +110,6 @@ services:
       - ./app:/app
     environment:
       - INSTANCE_NUMBER=1
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
     expose:
       - "8000"
     networks:
@@ -125,7 +122,6 @@ services:
       - ./app:/app
     environment:
       - INSTANCE_NUMBER=2
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
     expose:
       - "8000"
     networks:
@@ -138,7 +134,6 @@ services:
       - ./app:/app
     environment:
       - INSTANCE_NUMBER=3
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
     expose:
       - "8000"
     networks:
@@ -151,7 +146,6 @@ services:
       - ./app:/app
     environment:
       - INSTANCE_NUMBER=4
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
     expose:
       - "8000"
     networks:
@@ -164,7 +158,6 @@ services:
       - ./app:/app
     environment:
       - INSTANCE_NUMBER=5
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
     expose:
       - "8000"
     networks:
@@ -195,4 +188,16 @@ Por exemplo, o serviço nginx tem os seguintes blocos:
 
 `networks` - define a rede virtual, na qual, os contêineres irão se comunicar. Nesse caso, o nome da rede que eu criei foi `app_net`.
 
+Bloco dos serviços `fastapi1`, `fastapi2`, etc:
 
+`build`- define a construção de uma imagem **Docker** a partir de um Dockerfile localizado em um determinado diretório.
+
+`enviroment`- define variáveis de ambiente que serão disponibilizadas dentro do contêiner durante sua execução.
+
+`expose`- define que o contêiner usa uma porta internamente (não é exposta para fora). Escuta em uma ou mais portas.
+
+
+Por fim, para criar os contêiners com base nas imagens definidas do dcoker-compose.yaml, execute o seguinte comando:
+```
+docker-compose up --build
+```
